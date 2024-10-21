@@ -2,7 +2,8 @@
 
 const detLengthString = (string, maxLength) => string.length <= maxLength;
 
-console.log(detLengthString('проверяемая строка', 18));
+detLengthString();
+
 
 /* проверка  является ли строка палиндромом */
 
@@ -17,6 +18,4 @@ for(let i = str.length - 1; i >= 0; i--) {
 
 const detPalindrome = () =>(nevStr === str);
 
-console.log(detPalindrome(nevStr));
-
-
+detPalindrome();
