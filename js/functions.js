@@ -1,12 +1,11 @@
 /* проверка длины строки */
 
 const detLengthString = (string, maxLength) => string.length <= maxLength;
-//console.log(detLengthString('aaaaaaaaaa', 3));
+detLengthString('aaaaaaaaaa', 3);
 
 
 /* проверка  является ли строка палиндромом */
 
-//const text = 'Лёша на полке клопа нашёл';
 const isPalindrome = (value) => {
   const normalized = value.replaceAll(' ', '') .toLowerCase();
   let inverse = '';
@@ -15,7 +14,7 @@ const isPalindrome = (value) => {
   }
   return inverse === normalized;
 };
-//console.log(isPalindrome('1Лёша на полке клопа нашёл'));
+isPalindrome('1Лёша на полке клопа нашёл');
 
 
 /* дополнительное задание */
@@ -30,4 +29,4 @@ const getNumbers = (value) => {
   }
   return Number.parseInt(result, 10);
 };
-//console.log(getNumbers('1 кефир, 0.5 батона'));
+getNumbers('1 кефир, 0.5 батона');
