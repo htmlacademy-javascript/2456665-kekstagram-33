@@ -1,7 +1,8 @@
 /* проверка длины строки */
 
 const detLengthString = (string, maxLength) => string.length <= maxLength;
-detLengthString('aaaaaaaaaa', 3);
+
+detLengthString('aaa', 5);
 
 
 /* проверка  является ли строка палиндромом */
@@ -14,7 +15,7 @@ const isPalindrome = (value) => {
   }
   return inverse === normalized;
 };
-isPalindrome('1Лёша на полке клопа нашёл');
+isPalindrome('топот');
 
 
 /* дополнительное задание */
@@ -29,4 +30,5 @@ const getNumbers = (value) => {
   }
   return Number.parseInt(result, 10);
 };
-getNumbers('1 кефир, 0.5 батона');
+getNumbers();
+
