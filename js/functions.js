@@ -49,4 +49,6 @@ const checkMeeting = (start, end, startMeet, duringMeet) => {
   return startMeetPoint >= startPoint && startMeetPoint <= endPoint && endtMeetPoint >= startPoint && endtMeetPoint <= endPoint;
 };
 
-console.log(checkMeeting('08:00', '18:00', '08:00', 90));
+checkMeeting();
+
+
