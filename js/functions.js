@@ -32,3 +32,21 @@ const getNumbers = (value) => {
 };
 getNumbers();
 
+
+/* Дополнительное задание 5.16 */
+const MINUTES_IN_HOUR = 60;
+
+const getTimePoint = (time) => {
+  const [hour, min] = time.split(':');
+  return hour * MINUTES_IN_HOUR + Number(min);
+};
+
+const checkMeeting = (start, end, startMeet, duringMeet) => {
+  const startPoint = getTimePoint(start);
+  const endPoint = getTimePoint(end);
+  const startMeetPoint = getTimePoint(startMeet);
+  const endtMeetPoint = startMeetPoint + duringMeet;
+  return startMeetPoint >= startPoint && startMeetPoint <= endPoint && endtMeetPoint >= startPoint && endtMeetPoint <= endPoint;
+};
+
+console.log(checkMeeting('08:00', '18:00', '08:00', 90));
