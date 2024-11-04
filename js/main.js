@@ -1,4 +1,5 @@
 //import './functions.js';
-import {createFoto} from './data.js';
 
-createFoto();
+import {createFotos} from './data.js';
+
+console.log(createFotos());

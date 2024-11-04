@@ -43,4 +43,4 @@ const createFotos = () =>
 
 createFotos();
 
-export {createFoto};
+export {createFotos};
