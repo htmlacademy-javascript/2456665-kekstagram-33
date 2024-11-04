@@ -1,8 +1,10 @@
 import { getRandomArrayElement, getRandomNumber} from './util';
 
-const PHOTOS_COUNT = 25;
+const MIN_COMMENTS = 1;
+const MAX_COMMENTS = 2;
 const MIN_LIKES = 15;
 const MAX_LIKES = 200;
+const PHOTOS_COUNT = 25;
 
 const DESCRIPTIONS = ['Утро', 'Вечер', 'Котик' ];
 
@@ -11,7 +13,7 @@ const COMMENTS = ['Всё отлично!', 'В целом всё неплохо
 const NAMES = ['Николай', 'Таня', 'Сургей', 'Оля', 'Иван', 'Егор'];
 
 const createMessage = () =>
-  Array.from({ length: getRandomNumber(1, 2) }, () =>
+  Array.from({ length: getRandomNumber(MIN_COMMENTS, MAX_COMMENTS) }, () =>
     COMMENTS[getRandomNumber(0, COMMENTS.length - 1)]
   ).join(' ');
 
