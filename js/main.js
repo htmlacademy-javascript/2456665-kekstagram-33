@@ -1,5 +1,7 @@
 //import './functions.js';
 
 import {createFotos} from './data.js';
+import {renderCards} from './picture.js';
 
-console.log(createFotos());
+const photos = createFotos();
+renderCards(photos);

@@ -1,17 +1,27 @@
 
-const pictureTemplate = document.querySelector('#picture').content.querySelector('picture'); //          находим контент шаблона, а в контенте шаблон элемента
-const container = document.querySelector('.pictures'); // находим контейнер для изображений
+const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const container = document.querySelector('.pictures');
 
 
-const createPicture = (data) => { //функция сщздания элемента
-  const { comments, description, likes, url } = data;//ключи объекта-фото(параметры  функции)
-  const picture = pictureTemplate.cloneNode(true); // клонируем шаблон в переменную
-  picture.querySelector('.picture__img').src = url; // передаем ссылку на картинку
-  picture.querySelector('.picture__img').alt = description; // название картинки
-  picture.querySelector('.picture__comments').textContent = comments; // текст коментария
-  picture.querySelector('.picture__likes').textContent = likes; // лайки катинки
+const createPicture = (data) => {
+  const { comments, description, likes, url } = data;
+  const picture = pictureTemplate.cloneNode(true);
+  picture.querySelector('.picture__img').src = url;
+  picture.querySelector('.picture__img').alt = description;
+  picture.querySelector('.picture__comments').textContent = comments;
+  picture.querySelector('.picture__likes').textContent = likes;
 
-  return picture; // возвращаем склонированный заполненный шаблон
+  return picture;
 };
 
-export {createPicture};
+const renderCards = (photos) => {
+  const fragment = document.createDocumentFragment();
+  photos.forEach((photo) => {
+    fragment.append(createPicture(photo));
+  });
+
+  container.append(fragment);
+};
+
+export {renderCards};
+
