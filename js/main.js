@@ -1,6 +1,7 @@
-import './functions.js';
-import {createFoto} from './data.js';
+//import './functions.js';
 
-createFoto();
+import {createFotos} from './data.js';
+import {renderCards} from './picture.js';
 
-
+const photos = createFotos();
+renderCards(photos);
