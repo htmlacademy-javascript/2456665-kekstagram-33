@@ -1,29 +1,96 @@
-const bigPicture = document.querySelector('.big-picture'); //блок полноэкранного показа изображения
-const cancelButton = document.querySelector('.big-picture__cancel'); //кнопка выхода из полноэк. пок.
+const bigPictureElement = document.querySelector('.big-picture');
+const imageElement = bigPictureElement.querySelector('.big-picture__img img');
+const descriptionElement = bigPictureElement.querySelector('.social__caption');
+const likesElement = bigPictureElement.querySelector('.likes-count');
+const totalCommentsElement = bigPictureElement.querySelector('.social__comment-total-count');
+const commentTemplate = bigPictureElement.querySelector('.social__comment');
+const commentListElement = bigPictureElement.querySelector('.social__comments');
+const renderedCommentsCountElement = bigPictureElement.querySelector('.social__comment-shown-count');
+const cancelButton = document.querySelector('.big-picture__cancel');
+const loaderElement = bigPictureElement.querySelector('.comments-loader');
 
+const COMMENTS_STEP = 5;
 
-const showBigPicture = () => { // открываем полноэк. режим и добавляем обработчик на ESC
-  bigPicture.classList.remove('hidden'); //открваем фото в полноэкранном изображении
-  document.addEventListener('keydown', onEscKeyDown); // добавляет обработчик на ESC
+let localCommets;
+let totalCommets;
+let renderedComments = 0;
+
+const showBigPicture = () => {
+  bigPictureElement.classList.remove('hidden');
+  document.addEventListener('keydown', onEscKeyDown);
+  document.body.classList.add('modal-open');
 };
 
-const hideBigPicture = () => { // фунуция BigPicture(СкрытьБольшуюКартину)
-  bigPicture.classList.add('hidden'); // убираем класс hidden, заерываем полноэкр. режим
-  document.removeEventListener('keydown', onEscKeyDown); // удаляем обработчик обработчик на ESC
+const hideBigPicture = () => {
+  bigPictureElement.classList.add('hidden');
+  document.removeEventListener('keydown', onEscKeyDown);
+  document.body.classList.remove('modal-open');
 };
 
-function onEscKeyDown(evt) { // функция приНажатииКлавишиEsc
-  if (evt.key === 'Escape') { // если клавиша Esc
-    evt.preventDefault(); // отменяется действие по умолчанию
-    hideBigPicture(); // запускается функция BigPicture(СкрытьБольшуюКартину)
+function onEscKeyDown(evt) {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    hideBigPicture();
   }
 }
 
-const onCancelButtonClick = () => { // фукция onCancelButtonClick(приНажатииКнопкиОтмена)
-  hideBigPicture(); // запускается фунуция BigPicture(СкрытьБольшуюКартину)
+const onCancelButtonClick = () => {
+  hideBigPicture();
 };
 
-cancelButton.addEventListener('click', onCancelButtonClick); // на кнопку отмена добавляем обработчик
+cancelButton.addEventListener('click', onCancelButtonClick);
+
+const createComment = ({ name, avatar, message }) => {
+  const newCommentElement = commentTemplate.cloneNode(true);
+  const avatarElement = newCommentElement.querySelector('.social__picture');
+  avatarElement.src = avatar;
+  avatarElement.alt = name;
+  newCommentElement.querySelector('.social__text').textContent = message;
+
+  return newCommentElement;
+};
+
+const renderStatistic = () => {
+  renderedCommentsCountElement.textContent = renderedComments;
+};
+
+const renderLoader = () => {
+  if (totalCommets > renderedComments) {
+    loaderElement.classList.remove('hidden');
+  } else {
+    loaderElement.classList.add('hidden');
+  }
+};
+
+const renderComments = () => {
+  localCommets.splice(0, COMMENTS_STEP).forEach((item) => {
+    commentListElement.append(createComment(item));
+    renderedComments++;
+  });
+  renderStatistic();
+  renderLoader();
+};
 
 
-export { showBigPicture };
+const render = ({ url, description, likes, comments }) => {
+  imageElement.src = url;
+  descriptionElement.textContent = description;
+  likesElement.textContent = likes;
+  totalCommentsElement.textContent = comments.length;
+  totalCommets = comments.length;
+  commentListElement.innerHTML = '';
+  localCommets = [...comments];
+  renderedComments = 0;
+  renderComments();
+};
+
+const openBigPicture = (photo) => {
+  render(photo);
+  showBigPicture();
+};
+
+loaderElement.addEventListener('click', () => {
+  renderComments();
+});
+
+export { openBigPicture };
