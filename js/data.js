@@ -1,7 +1,9 @@
 import { getRandomArrayElement, getRandomNumber} from './util';
 
-const MIN_COMMENTS = 1;
-const MAX_COMMENTS = 2;
+const MIN_COMMENTS = 0;
+const MAX_COMMENTS = 30;
+const MIN_AVATAR = 1;
+const MAX_AVATAR = 6;
 const MIN_LIKES = 15;
 const MAX_LIKES = 200;
 const PHOTOS_COUNT = 25;
@@ -13,13 +15,13 @@ const COMMENTS = ['Всё отлично!', 'В целом всё неплохо
 const NAMES = ['Николай', 'Таня', 'Сургей', 'Оля', 'Иван', 'Егор'];
 
 const createMessage = () =>
-  Array.from({ length: getRandomNumber(MIN_COMMENTS, MAX_COMMENTS) }, () =>
+  Array.from({ length: 2 }, () =>
     COMMENTS[getRandomNumber(0, COMMENTS.length - 1)]
   ).join(' ');
 
 const createComment = (index) => ({
   id: index,
-  avatar: `img/avatar-${index}.svg`,
+  avatar: `img/avatar-${getRandomNumber(MIN_AVATAR, MAX_AVATAR)}.svg`,
   message: createMessage(),
   name: getRandomArrayElement(NAMES),
 });
@@ -31,7 +33,7 @@ const createFoto = (index) => ({
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomNumber(MIN_LIKES, MAX_LIKES),
   comments: Array.from(
-    { length: getRandomNumber(0, NAMES.length - 1) },
+    { length: getRandomNumber(MIN_COMMENTS, MAX_COMMENTS) },
     (_, commentIndex) => createComment(commentIndex + 1)
   )
 });
