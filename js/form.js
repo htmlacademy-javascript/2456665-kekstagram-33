@@ -1,52 +1,63 @@
-const formUpload = document.querySelector('.img-upload__form'); // форма загрузки изображения
-const overlay = document.querySelector('.img-upload__overlay'); // форма редактирования изображения
-const fileField = document.querySelector('#upload-file');//изночльное состояния форьы для загрузки изобр.
-const cancelButton = document.querySelector('#upload-cancel');//кнопка для закрытия формы редактирования
+const formUploadElement = document.querySelector('.img-upload__form'); // форма загрузки изображения
+const overlayElement = document.querySelector('.img-upload__overlay'); // форма редактирования изобр.
+const fileFieldElement = document.querySelector('#upload-file');//изноч. состоян. формы для за-ки изобр.
+const hashtagFieldElement = document.querySelector('.text__hashtags'); // поле для ввода хэштег
+const commentFieldElement = document.querySelector('.text__description'); // поле для ввода коментария
+const cancelButtonElement = document.querySelector('#upload-cancel');//кнопка для закрытия формы редакт.
+
+const MIN_HASHTAG_LENGTH = 2; // минимальная длина хештега
+const MAX_HASHTAG_LENGTH = 20; //минимальная длина хештега
 
 //------ открытие форму редактирования изображения -------//
 const showModel = () => { // функция  показатьМодель;
-  overlay.classList.remove('hidden');// удаляем класс hidden у элемента .img-upload__overlay
+  overlayElement.classList.remove('hidden');// удаляем класс hidden у элемента .img-upload__overlay
   document.body.classList.add('modal-open');// тегу body задаем класс modal-open - убираем скролл
   document.addEventListener('keydown', onEscKeyDown);// добавляем обработчик нажатия клавиши Esc
 };
 
-fileField.addEventListener('change', () => { //вешаем обр.соб. на изночльное состояния форьы для загрузки
+fileFieldElement.addEventListener('change', () => { //вешаем обр.соб. на изночльное состояния форьы для загрузки
   showModel(); // запуск фуекция показать форму редактирования;
 });
 
 
 //------ Зккрытие формы редактирования изображения -------//
 const hideModal = () => {
-  overlay.classList.add('hidden'); // добавляем класс hidden у элемента .img-upload__overlay
+  overlayElement.classList.add('hidden'); // добавляем класс hidden у элемента .img-upload__overlay
   document.body.classList.remove('modal-open');// у тега body удаляем класс modal-open
   document.removeEventListener('keydown', onEscKeyDown);// удаляем обработчик отслеживания нажатия Esc
-  formUpload.reset();// сбросим всю форму .img-upload__form с помощью метода .reset()
+  formUploadElement.reset();// сбросим всю форму .img-upload__form с помощью метода .reset()
 };
 
+const isTextFieldFocused = () => //
+  document.activeElement === hashtagFieldElement || // курсор в поле хештега(фокус)
+  document.activeElement === commentFieldElement; // курсор в поле коммита(фокус)
+
 function onEscKeyDown(evt) { // функция приНажатииКлавишиEsc
-  if (evt.key === 'Escape') { // если клавиша Esc
+  if (evt.key === 'Escape' && !isTextFieldFocused()) { //если Esc или фокус не(!) в полях хешт. и комм.
     evt.preventDefault(); // отменяется действие по умолчанию
     hideModal(); // запускается функция приНажатииКлавишиEsc
   }
 }
 
-cancelButton.addEventListener('click', () => {//вешаем обр.соб.на изночльное состояния форьы для загрузки
-  hideModal(); // запуск фуекция закрыть форму редактирования;
+cancelButtonElement.addEventListener('click', () => {//вешаем обр.соб.на изночльное состояния форьы для загрузки
+  hideModal(); // запуск функции закрыть форму редактирования;
 });
 
 
-/*
-const pristine = new Pristine(formUpload);
+// --------------- ВАЛИДАЦИЯ ---------------------- //
 
-formUpload.addEventListener('submit', (evt) => {
+const pristine = new Pristine(formUploadElement, {
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextClass: 'img-upload__error',
+});
+
+
+const validateNickname = (value) => value.length >= MIN_HASHTAG_LENGTH && value.length <= MAX_HASHTAG_LENGTH; // хештег от 2 до 20 символов
+
+pristine.addValidator(hashtagFieldElement, validateNickname, 'Неправильно заполнен хештег');//вызываем метод с аргумкнтами
+
+formUploadElement.addEventListener('submit', (evt) => {
   evt.preventDefault();
-
-  const isValid = pristine.validate();
-  if (isValid) {
-    console.log('Можно отправлять');
-  } else {
-    console.log('Форма невалидна');
-  }
+  pristine.validate();
 });
-*/
-
