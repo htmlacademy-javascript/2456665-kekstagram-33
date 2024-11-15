@@ -1,9 +1,9 @@
 const formUploadElement = document.querySelector('.img-upload__form'); // форма загрузки изображения
-const overlayElement = document.querySelector('.img-upload__overlay'); // форма редактирования изобр.
-const fileFieldElement = document.querySelector('#upload-file');//изноч. состоян. формы для за-ки изобр.
-const hashtagFieldElement = document.querySelector('.text__hashtags'); // поле для ввода хэштег
-const commentFieldElement = document.querySelector('.text__description'); // поле для ввода коментария
-const cancelButtonElement = document.querySelector('#upload-cancel');//кнопка для закрытия формы редакт.
+const overlayElement = formUploadElement.querySelector('.img-upload__overlay'); // форма редак. изобр.
+const fileFieldElement = formUploadElement.querySelector('#upload-file');//изноч. сост. формы для изобр.
+const hashtagFieldElement = formUploadElement.querySelector('.text__hashtags'); // поле для ввода хэштег
+const commentFieldElement = formUploadElement.querySelector('.text__description'); //поле для комента
+const cancelButtonElement = formUploadElement.querySelector('#upload-cancel');//кнопка закрытия формы редакт.
 
 const MIN_HASHTAG_LENGTH = 2; // минимальная длина хештега
 const MAX_HASHTAG_LENGTH = 20; //минимальная длина хештега
