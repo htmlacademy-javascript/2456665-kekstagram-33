@@ -1,5 +1,6 @@
 import {isValidate, reset as resetValidation} from './validation.js';
-import { resetScale } from'./scale.js';
+import { resetScale } from './scale.js';
+import './filter.js';
 
 
 const formUploadElement = document.querySelector('.img-upload__form');

@@ -11,7 +11,7 @@ const DEFAULT_SCALE = 100; // масштаб по умолчанию
 
 const scaleImage = (value = DEFAULT_SCALE) => { //масштабИзображения (значение = по умолчанию)
   scaleInput.value = `${value}%`; // отрисовываем масштаб
-  image.style.transform = scale();// ????????? - показать изображение
+  image.style.transform = `scale(${value * 0.01})`;//добавляем в img атрибут style=transform=scale(), чтобы картинка меняла масштаб
   console.log(scaleImage);
 };
 
