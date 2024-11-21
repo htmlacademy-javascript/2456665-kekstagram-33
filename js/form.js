@@ -1,4 +1,8 @@
 import {isValidate, reset as resetValidation} from './validation.js';
+import { resetScale } from './scale.js';
+import { reset as resetFilter } from './filter.js';
+import './filter.js';
+
 
 const formUploadElement = document.querySelector('.img-upload__form');
 const overlayElement = formUploadElement.querySelector('.img-upload__overlay');
@@ -25,6 +29,8 @@ const hideModal = () => {
   document.removeEventListener('keydown', onEscKeyDown);
   formUploadElement.reset();
   resetValidation();
+  resetScale();
+  resetFilter();
 };
 
 const isTextFieldFocused = () =>
