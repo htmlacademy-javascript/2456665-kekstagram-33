@@ -66,8 +66,9 @@ effectsElement.addEventListener('change', ({ target }) => {
   if(DEFAULT_EFFECT.name === target.value){
     imageElement.style.filter = '';
     removeSlider();
+  } else {
+    addSlider();
   }
-  addSlider();
 }
 );
 
