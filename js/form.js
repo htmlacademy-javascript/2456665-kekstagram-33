@@ -1,5 +1,6 @@
 import {isValidate, reset as resetValidation} from './validation.js';
 import { resetScale } from './scale.js';
+import { reset as resetFilter } from './filter.js';
 import './filter.js';
 
 
@@ -29,6 +30,7 @@ const hideModal = () => {
   formUploadElement.reset();
   resetValidation();
   resetScale();
+  resetFilter();
 };
 
 const isTextFieldFocused = () =>

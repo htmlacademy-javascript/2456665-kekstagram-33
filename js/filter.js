@@ -1,55 +1,21 @@
-const sliderElement = document.querySelector('.effect-level__slider'); // блок для слайдера
+import { EFFECTS } from './constants.js';
 
-const EFFECTS = [ // массив эфектов с настройками
-  {
-    name: 'none',
-    min: 0, // мин. значение
-    max: 100, // мах. значание
-    step: 1, // шаг изменения значений
-  },
-  {
-    name: 'chrome',
-    style: 'grayscale',
-    min: 0,
-    max: 1,
-    step: 0.1,
-    unit: '',
-  },
-  {
-    name: 'sepia',
-    style: 'sepia',
-    min: 0,
-    max: 1,
-    step: 0.1,
-    unit: '',
-  },
-  {
-    name: 'marvin',
-    style: 'invert',
-    min: 0,
-    max: 100,
-    step: 1,
-    unit: '%', // единица изьерения
-  },
-  {
-    name: 'phobos',
-    style: 'blur',
-    min: 0,
-    max: 3,
-    step: 0.1,
-    unit: 'px', // единица изьерения
-  },
-  {
-    name: 'heat',
-    style: 'brightness',
-    min: 1,
-    max: 3,
-    step: 0.1,
-    unit: '',
-  },
-];
+const sliderElement = document.querySelector('.effect-level__slider');
+const effectsElement = document.querySelector('.effects__list');
+const imageElement = document.querySelector('.img-upload__preview img');
+const valueElement = document.querySelector('.effect-level__value');
+const effectLevelElement = document.querySelector('.img-upload__effect-level');
 
-const DEFAULT_EFFECT = EFFECTS[0]; //  по умолчанию присваивем элемент с нулевым индексом
+const DEFAULT_EFFECT = EFFECTS[0];
+
+
+const removeSlider = () => {
+  effectLevelElement.classList.add('hidden');
+};
+
+const addSlider = () => {
+  effectLevelElement.classList.remove('hidden');
+};
 
 noUiSlider.create(sliderElement, {
   range: {
@@ -59,6 +25,54 @@ noUiSlider.create(sliderElement, {
   start: DEFAULT_EFFECT.max,
   step: DEFAULT_EFFECT.step,
   connect: 'lower',
+  format: {
+    to: function (value) {
+      if (Number.isInteger(value)) {
+        return value.toFixed(0);
+      }
+      return value.toFixed(1);
+    },
+    from: function (value) {
+      return parseFloat(value);
+    },
+  },
 });
 
+const renderImage = ({ style, unit }, value) => {
+  imageElement.style.filter = `${style}(${value}${unit})`;
+};
 
+
+sliderElement.noUiSlider.on('update', () => {
+  const value = sliderElement.noUiSlider.get();
+  const currentEffect = document.querySelector('.effects__radio:checked').value;
+  valueElement.value = value;
+  renderImage(EFFECTS.find((item) => item.name === currentEffect), value);
+});
+
+const updateSlider = ({ min, max, step }) => {
+  sliderElement.noUiSlider.updateOptions({
+    range: {
+      min,
+      max,
+    },
+    start: max,
+    step,
+  });
+};
+
+effectsElement.addEventListener('change', ({ target }) => {
+  updateSlider(EFFECTS.find((item) => item.name === target.value));
+  if(DEFAULT_EFFECT.name === target.value){
+    imageElement.style.filter = '';
+    removeSlider();
+  }
+  addSlider();
+}
+);
+
+export const reset = () => {
+  imageElement.style.filter = ''; //Очистить изображение от фильтра
+  removeSlider();//спрятать слайдер
+};
+reset();
