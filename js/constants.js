@@ -1,3 +1,7 @@
+export const GET_DATA = 'https://32.javascript.htmlacademy.pro/kekstagram/data';
+export const POST_DATA = 'https://32.javascript.htmlacademy.pro/kekstagram';
+
+
 export const EFFECTS = [
   {
     name: 'none',

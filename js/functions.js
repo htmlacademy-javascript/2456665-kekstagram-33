@@ -1,11 +1,6 @@
-/* проверка длины строки */
 
 const detLengthString = (string, maxLength) => string.length <= maxLength;
-
 detLengthString('aaa', 5);
-
-
-/* проверка  является ли строка палиндромом */
 
 const isPalindrome = (value) => {
   const normalized = value.replaceAll(' ', '') .toLowerCase();
@@ -16,9 +11,6 @@ const isPalindrome = (value) => {
   return inverse === normalized;
 };
 isPalindrome('топот');
-
-
-/* дополнительное задание */
 
 const getNumbers = (value) => {
   const preparedValue = String(value);
@@ -32,15 +24,12 @@ const getNumbers = (value) => {
 };
 getNumbers();
 
-
-/* Дополнительное задание 5.16 */
 const MINUTES_IN_HOUR = 60;
 
 const getTimePoint = (time) => {
   const [hour, min] = time.split(':');
   return hour * MINUTES_IN_HOUR + Number(min);
 };
-
 const checkMeeting = (start, end, startMeet, duringMeet) => {
   const startPoint = getTimePoint(start);
   const endPoint = getTimePoint(end);
@@ -48,7 +37,6 @@ const checkMeeting = (start, end, startMeet, duringMeet) => {
   const endtMeetPoint = startMeetPoint + duringMeet;
   return startMeetPoint >= startPoint && startMeetPoint <= endPoint && endtMeetPoint >= startPoint && endtMeetPoint <= endPoint;
 };
-
 checkMeeting();
 
 
