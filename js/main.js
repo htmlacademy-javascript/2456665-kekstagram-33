@@ -1,8 +1,11 @@
 //import './functions.js';
-
-import {createFotos} from './data.js';
 import {renderCards} from './picture.js';
+import { getData } from './api.js';
 import './form.js';
 
-
-renderCards(createFotos());
+getData()
+  .then((data) => {
+    renderCards(data);
+  })
+  .catch(() => {
+  });
