@@ -10,7 +10,7 @@ const fileFieldElement = formUploadElement.querySelector('#upload-file');
 const hashtagFieldElement = formUploadElement.querySelector('.text__hashtags');
 const commentFieldElement = formUploadElement.querySelector('.text__description');
 const cancelButtonElement = formUploadElement.querySelector('#upload-cancel');
-const submitButton = formUploadElement.querySelector('.img-upload__submit');
+const submitButtonElemtnt = formUploadElement.querySelector('.img-upload__submit');
 
 const showModel = () => {
   overlayElement.classList.remove('hidden');
@@ -48,13 +48,13 @@ cancelButtonElement.addEventListener('click', () => {
 });
 
 const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = 'Отправляется';
+  submitButtonElemtnt.disabled = true;
+  submitButtonElemtnt.textContent = 'Отправляется';
 };
 
 const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = 'Показать';
+  submitButtonElemtnt.disabled = false;
+  submitButtonElemtnt.textContent = 'Показать';
 };
 
 formUploadElement.addEventListener('submit', (evt) => {
