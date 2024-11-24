@@ -1,6 +1,6 @@
 import {isValidate, reset as resetValidation} from './validation.js';
 import { resetScale } from './scale.js';
-import { reset as resetFilter } from './filter.js';
+import { reset as resetFilter } from './effect.js';
 import { sendData } from './api.js';
 import { showPopup } from './popup.js';
 

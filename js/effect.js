@@ -73,7 +73,7 @@ effectsElement.addEventListener('change', ({ target }) => {
 );
 
 export const reset = () => {
-  imageElement.style.filter = ''; //Очистить изображение от фильтра
-  removeSlider();//спрятать слайдер
+  imageElement.style.filter = '';
+  removeSlider();
 };
 reset();
