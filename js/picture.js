@@ -3,7 +3,7 @@ import { openBigPicture } from './big-picture.js';
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const container = document.querySelector('.pictures');
 
-let localData;
+let localData = [];
 
 const createPicture = (data) => {
   const { comments, description, likes, url, id } = data;
@@ -17,7 +17,14 @@ const createPicture = (data) => {
   return picture;
 };
 
+const clear = () => {
+  document.querySelectorAll('.picture').forEach((item) => {
+    item.remove();
+  });
+};
+
 const renderCards = (photos) => {
+  clear();
   localData = [...photos];
   const fragment = document.createDocumentFragment();
   photos.forEach((photo) => {

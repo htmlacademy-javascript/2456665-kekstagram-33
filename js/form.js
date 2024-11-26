@@ -47,14 +47,14 @@ cancelButtonElement.addEventListener('click', () => {
   hideModal();
 });
 
-const blockSubmitButton = () => {
-  submitButtonElemtnt.disabled = true;
-  submitButtonElemtnt.textContent = 'Отправляется';
+const ButtonCaption = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Отправляется'
 };
 
-const unblockSubmitButton = () => {
-  submitButtonElemtnt.disabled = false;
-  submitButtonElemtnt.textContent = 'Показать';
+const blockSubmitButton = (isBlocked = true) => {
+  submitButtonElemtnt.disabled = isBlocked;
+  submitButtonElemtnt.textContent = isBlocked ? ButtonCaption.SENDING : ButtonCaption.IDLE;
 };
 
 formUploadElement.addEventListener('submit', (evt) => {
@@ -71,10 +71,15 @@ formUploadElement.addEventListener('submit', (evt) => {
 
         hideModal();
         showPopup('success');
-        unblockSubmitButton();
+
       })
+
       .catch(() => {
         showPopup('error');
+      })
+
+      .finally(() => {
+        blockSubmitButton(false);
       });
   }
 });
