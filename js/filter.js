@@ -1,79 +1,58 @@
-import { EFFECTS } from './constants.js';
 
-const sliderElement = document.querySelector('.effect-level__slider');
-const effectsElement = document.querySelector('.effects__list');
-const imageElement = document.querySelector('.img-upload__preview img');
-const valueElement = document.querySelector('.effect-level__value');
-const effectLevelElement = document.querySelector('.img-upload__effect-level');
+import { getRandomArrayElement, debounce} from './util';
+import { renderCards } from './picture.js';
 
-const DEFAULT_EFFECT = EFFECTS[0];
+const form = document.querySelector('.img-filters__form');
+const filtersElement = document.querySelector('.img-filters');
 
+const ACTIVE_CLASS = 'img-filters__button--active';
+const PICTURES_COUNT = 10;
+const DELAY = 500;
 
-const removeSlider = () => {
-  effectLevelElement.classList.add('hidden');
+const Filter = {
+  DEFAULT: 'filter-default',
+  RANDOM: 'filter-random',
+  DISCUSSED: 'filter-discussed',
 };
 
-const addSlider = () => {
-  effectLevelElement.classList.remove('hidden');
+let currentFilter = '';
+let pictures = [];
+
+const discussedSort = (pictureA, pictureB) =>
+  pictureB.comments.length - pictureA.comments.length;
+
+const filterPictures = {
+  [Filter.DISCUSSED]: () => [...pictures].sort(discussedSort),
+  [Filter.RANDOM]: () => [...pictures].sort(getRandomArrayElement).slice(0, PICTURES_COUNT),
+  [Filter.DEFAULT]: () => [...pictures]
 };
 
-noUiSlider.create(sliderElement, {
-  range: {
-    min: DEFAULT_EFFECT.min,
-    max: DEFAULT_EFFECT.max,
-  },
-  start: DEFAULT_EFFECT.max,
-  step: DEFAULT_EFFECT.step,
-  connect: 'lower',
-  format: {
-    to: function (value) {
-      if (Number.isInteger(value)) {
-        return value.toFixed(0);
-      }
-      return value.toFixed(1);
-    },
-    from: function (value) {
-      return parseFloat(value);
-    },
-  },
-});
-
-const renderImage = ({ style, unit }, value) => {
-  imageElement.style.filter = `${style}(${value}${unit})`;
+const turnFilterOn = (loadedPictures) => {
+  filtersElement.classList.remove('img-filters--inactive');
+  pictures = [...loadedPictures];
+  currentFilter = Filter.DEFAULT;
+  renderCards(filterPictures[currentFilter]());
 };
 
-
-sliderElement.noUiSlider.on('update', () => {
-  const value = sliderElement.noUiSlider.get();
-  const currentEffect = document.querySelector('.effects__radio:checked').value;
-  valueElement.value = value;
-  renderImage(EFFECTS.find((item) => item.name === currentEffect), value);
-});
-
-const updateSlider = ({ min, max, step }) => {
-  sliderElement.noUiSlider.updateOptions({
-    range: {
-      min,
-      max,
-    },
-    start: max,
-    step,
-  });
+const setActiveButton = (button) => {
+  document.querySelector(`.${ACTIVE_CLASS}`).classList.remove(ACTIVE_CLASS);
+  button.classList.add(ACTIVE_CLASS);
 };
 
-effectsElement.addEventListener('change', ({ target }) => {
-  updateSlider(EFFECTS.find((item) => item.name === target.value));
-  if(DEFAULT_EFFECT.name === target.value){
-    imageElement.style.filter = '';
-    removeSlider();
-  } else {
-    addSlider();
+form.addEventListener('click', ({ target }) => {
+  if (target.classList.contains('img-filters__button')) {
+    currentFilter = target.id;
+    setActiveButton(target);
   }
-}
+});
+
+form.addEventListener('click', debounce(({ target }) => {
+  if (target.classList.contains('img-filters__button')) {
+    currentFilter = target.id;
+    renderCards(filterPictures[currentFilter]());
+  }
+}, DELAY)
 );
 
-export const reset = () => {
-  imageElement.style.filter = ''; //Очистить изображение от фильтра
-  removeSlider();//спрятать слайдер
-};
-reset();
+export { turnFilterOn };
+

@@ -1,6 +1,6 @@
 import {isValidate, reset as resetValidation} from './validation.js';
 import { resetScale } from './scale.js';
-import { reset as resetFilter } from './filter.js';
+import { reset as resetFilter } from './effect.js';
 import { sendData } from './api.js';
 import { showPopup } from './popup.js';
 
@@ -10,7 +10,7 @@ const fileFieldElement = formUploadElement.querySelector('#upload-file');
 const hashtagFieldElement = formUploadElement.querySelector('.text__hashtags');
 const commentFieldElement = formUploadElement.querySelector('.text__description');
 const cancelButtonElement = formUploadElement.querySelector('#upload-cancel');
-const submitButton = formUploadElement.querySelector('.img-upload__submit');
+const submitButtonElemtnt = formUploadElement.querySelector('.img-upload__submit');
 
 const showModel = () => {
   overlayElement.classList.remove('hidden');
@@ -47,14 +47,14 @@ cancelButtonElement.addEventListener('click', () => {
   hideModal();
 });
 
-const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = 'Отправляется';
+const ButtonCaption = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Отправляется'
 };
 
-const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = 'Показать';
+const blockSubmitButton = (isBlocked = true) => {
+  submitButtonElemtnt.disabled = isBlocked;
+  submitButtonElemtnt.textContent = isBlocked ? ButtonCaption.SENDING : ButtonCaption.IDLE;
 };
 
 formUploadElement.addEventListener('submit', (evt) => {
@@ -71,10 +71,15 @@ formUploadElement.addEventListener('submit', (evt) => {
 
         hideModal();
         showPopup('success');
-        unblockSubmitButton();
+
       })
+
       .catch(() => {
         showPopup('error');
+      })
+
+      .finally(() => {
+        blockSubmitButton(false);
       });
   }
 });
