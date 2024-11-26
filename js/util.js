@@ -1,5 +1,3 @@
-const DELAY = 500;
-
 const getRandomNumber = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
@@ -9,7 +7,7 @@ const getRandomNumber = (a, b) => {
 
 const getRandomArrayElement = (data) => data[getRandomNumber(0, data.length - 1)];
 
-const debounce = (callback, timeoutDelay = DELAY) => {
+const debounce = (callback, timeoutDelay) => {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);
