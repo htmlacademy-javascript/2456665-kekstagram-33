@@ -1,3 +1,6 @@
+import { removeEscapeControl, setEscapeControl } from './escape-control.js';
+import { COMMENTS_STEP } from './constants';
+
 const bigPictureElement = document.querySelector('.big-picture');
 const imageElement = bigPictureElement.querySelector('.big-picture__img img');
 const descriptionElement = bigPictureElement.querySelector('.social__caption');
@@ -9,33 +12,23 @@ const renderedCommentsCountElement = bigPictureElement.querySelector('.social__c
 const cancelButton = document.querySelector('.big-picture__cancel');
 const loaderElement = bigPictureElement.querySelector('.comments-loader');
 
-const COMMENTS_STEP = 5;
-
 let localCommets;
 let totalCommets;
 let renderedComments = 0;
 
 const showBigPicture = () => {
   bigPictureElement.classList.remove('hidden');
-  document.addEventListener('keydown', onEscKeyDown);
   document.body.classList.add('modal-open');
 };
 
 const hideBigPicture = () => {
   bigPictureElement.classList.add('hidden');
-  document.removeEventListener('keydown', onEscKeyDown);
   document.body.classList.remove('modal-open');
 };
 
-function onEscKeyDown(evt) {
-  if (evt.key === 'Escape') {
-    evt.preventDefault();
-    hideBigPicture();
-  }
-}
-
 const onCancelButtonClick = () => {
   hideBigPicture();
+  removeEscapeControl();
 };
 
 cancelButton.addEventListener('click', onCancelButtonClick);
@@ -71,7 +64,6 @@ const renderComments = () => {
   renderLoader();
 };
 
-
 const render = ({ url, description, likes, comments }) => {
   imageElement.src = url;
   descriptionElement.textContent = description;
@@ -87,6 +79,7 @@ const render = ({ url, description, likes, comments }) => {
 const openBigPicture = (photo) => {
   render(photo);
   showBigPicture();
+  setEscapeControl(hideBigPicture);
 };
 
 loaderElement.addEventListener('click', () => {

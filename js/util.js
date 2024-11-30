@@ -5,6 +5,8 @@ const getRandomNumber = (a, b) => {
   return Math.floor(result);
 };
 
+const checkLengthString = (string, maxLength) => string.length < maxLength;
+
 const getRandomArrayElement = (data) => data[getRandomNumber(0, data.length - 1)];
 
 const debounce = (callback, timeoutDelay) => {
@@ -15,4 +17,4 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
-export {getRandomArrayElement, getRandomNumber, debounce};
+export { getRandomArrayElement, getRandomNumber, debounce, checkLengthString };

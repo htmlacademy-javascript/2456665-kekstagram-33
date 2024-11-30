@@ -1,9 +1,9 @@
+import { checkLengthString } from './util.js';
+import { MAX_HASHTAGS, SPACE, HASHTAG_FORMULA, MAX_COMMENT_LENGTH } from './constants.js';
+
 const formUploadElement = document.querySelector('.img-upload__form');
 const hashtagFieldElement = formUploadElement.querySelector('.text__hashtags');
-
-const MAX_HASHTAGS = 5;
-const SPACE = /\s+/g;
-const HASHTAG_FORMULA = /^#[A-Za-zА-Яа-яё0-9]{1,19}$/;
+const commentFieldElement = formUploadElement.querySelector('.text__description');
 
 const pristine = new Pristine(formUploadElement, {
   classTo: 'img-upload__field-wrapper',
@@ -11,8 +11,9 @@ const pristine = new Pristine(formUploadElement, {
   errorTextClass: 'img-upload__error',
 });
 
-const getHashtags = (text) => text.replaceAll(SPACE, ' ').trim().split(' ');
+const getHashtags = (text) => text.replaceAll(SPACE, ' ').trim().toLowerCase().split(' ');
 
+const checkComment = (value) => checkLengthString(value, MAX_COMMENT_LENGTH);
 const validateHashtag = (value) => {
   if (!value.length) {
     return true;
@@ -56,6 +57,11 @@ pristine.addValidator(
   'Хештеги не должны повторяться'
 );
 
+pristine.addValidator(
+  commentFieldElement,
+  checkComment,
+  `Длина комментария не должна превышать ${MAX_COMMENT_LENGTH}`
+);
 
 export const isValidate = () => pristine.validate();
 export const reset = () => pristine.reset();
