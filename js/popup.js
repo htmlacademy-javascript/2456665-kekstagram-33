@@ -2,6 +2,17 @@ import { removeEscapeControl, setEscapeControl } from './escape-control';
 
 const successTemplateElement = document.querySelector('#success').content.querySelector('.success');
 const errorTemplateElement = document.querySelector('#error').content.querySelector('.error');
+const dataErrorTemplateElement = document.querySelector('#data-error').content.querySelector('.data-error');
+
+export const showError = () => {
+  const errorInner = dataErrorTemplateElement.cloneNode(true);
+  document.body.append(errorInner);
+  const removeError = () => {
+    errorInner.remove();
+  };
+  setTimeout(removeError, 5000);
+};
+
 
 const templates = {
   success: successTemplateElement,
