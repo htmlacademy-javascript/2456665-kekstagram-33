@@ -1,13 +1,9 @@
-
-import { getRandomArrayElement, debounce} from './util';
+import { ACTIVE_CLASS, PICTURES_COUNT, DELAY } from './constants';
+import { getRandomArrayElement, debounce } from './util';
 import { renderCards } from './picture.js';
 
-const form = document.querySelector('.img-filters__form');
+const formElement = document.querySelector('.img-filters__form');
 const filtersElement = document.querySelector('.img-filters');
-
-const ACTIVE_CLASS = 'img-filters__button--active';
-const PICTURES_COUNT = 10;
-const DELAY = 500;
 
 const Filter = {
   DEFAULT: 'filter-default',
@@ -39,14 +35,14 @@ const setActiveButton = (button) => {
   button.classList.add(ACTIVE_CLASS);
 };
 
-form.addEventListener('click', ({ target }) => {
+formElement.addEventListener('click', ({ target }) => {
   if (target.classList.contains('img-filters__button')) {
     currentFilter = target.id;
     setActiveButton(target);
   }
 });
 
-form.addEventListener('click', debounce(({ target }) => {
+formElement.addEventListener('click', debounce(({ target }) => {
   if (target.classList.contains('img-filters__button')) {
     currentFilter = target.id;
     renderCards(filterPictures[currentFilter]());

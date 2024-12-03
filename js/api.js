@@ -6,6 +6,7 @@ export const getData = () => fetch(GET_DATA)
       throw new Error();
     }
     return response.json();
+
   });
 
 export const sendData = (body) => fetch(POST_DATA, {

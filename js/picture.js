@@ -1,13 +1,13 @@
 import { openBigPicture } from './big-picture.js';
 
-const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const container = document.querySelector('.pictures');
+const pictureTemplateElement = document.querySelector('#picture').content.querySelector('.picture');
+const containerElement = document.querySelector('.pictures');
 
 let localData = [];
 
 const createPicture = (data) => {
   const { comments, description, likes, url, id } = data;
-  const picture = pictureTemplate.cloneNode(true);
+  const picture = pictureTemplateElement.cloneNode(true);
   picture.querySelector('.picture__img').src = url;
   picture.querySelector('.picture__img').alt = description;
   picture.querySelector('.picture__comments').textContent = comments.length;
@@ -31,10 +31,10 @@ const renderCards = (photos) => {
     fragment.append(createPicture(photo));
   });
 
-  container.append(fragment);
+  containerElement.append(fragment);
 };
 
-container.addEventListener('click', ({ target }) => {
+containerElement.addEventListener('click', ({ target }) => {
   const card = target.closest('.picture');
   if(card){
     const id = Number(card.dataset.id);
@@ -43,5 +43,5 @@ container.addEventListener('click', ({ target }) => {
   }
 });
 
-export {renderCards};
+export { renderCards };
 

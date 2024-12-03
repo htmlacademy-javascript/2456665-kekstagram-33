@@ -1,8 +1,10 @@
-import {isValidate, reset as resetValidation} from './validation.js';
+import { isValidate, reset as resetValidation } from './validation.js';
 import { resetScale } from './scale.js';
 import { reset as resetFilter } from './effect.js';
 import { sendData } from './api.js';
 import { showPopup } from './popup.js';
+import { removeEscapeControl, setEscapeControl } from './escape-control.js';
+import { ButtonCaption } from './constants.js';
 
 const formUploadElement = document.querySelector('.img-upload__form');
 const overlayElement = formUploadElement.querySelector('.img-upload__overlay');
@@ -12,45 +14,33 @@ const commentFieldElement = formUploadElement.querySelector('.text__description'
 const cancelButtonElement = formUploadElement.querySelector('#upload-cancel');
 const submitButtonElemtnt = formUploadElement.querySelector('.img-upload__submit');
 
-const showModel = () => {
+const canModalBeClosed = () =>
+  !(document.activeElement === hashtagFieldElement ||
+  document.activeElement === commentFieldElement);
+
+const showModal = () => {
   overlayElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  document.addEventListener('keydown', onEscKeyDown);
+  setEscapeControl(hideModal, canModalBeClosed);
 };
 
 fileFieldElement.addEventListener('change', () => {
-  showModel();
+  showModal();
 });
 
-const hideModal = () => {
+function hideModal() {
   overlayElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onEscKeyDown);
   formUploadElement.reset();
   resetValidation();
   resetScale();
   resetFilter();
-};
-
-const isTextFieldFocused = () =>
-  document.activeElement === hashtagFieldElement ||
-  document.activeElement === commentFieldElement;
-
-function onEscKeyDown(evt) {
-  if (evt.key === 'Escape' && !isTextFieldFocused()) {
-    evt.preventDefault();
-    hideModal();
-  }
 }
 
 cancelButtonElement.addEventListener('click', () => {
   hideModal();
+  removeEscapeControl();
 });
-
-const ButtonCaption = {
-  IDLE: 'Опубликовать',
-  SENDING: 'Отправляется'
-};
 
 const blockSubmitButton = (isBlocked = true) => {
   submitButtonElemtnt.disabled = isBlocked;
@@ -68,16 +58,13 @@ formUploadElement.addEventListener('submit', (evt) => {
         if (!response.ok) {
           throw new Error();
         }
-
         hideModal();
+        removeEscapeControl();
         showPopup('success');
-
       })
-
       .catch(() => {
         showPopup('error');
       })
-
       .finally(() => {
         blockSubmitButton(false);
       });

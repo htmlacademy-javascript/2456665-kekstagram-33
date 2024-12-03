@@ -1,6 +1,25 @@
+export const COMMENTS_STEP = 5;
+export const MAX_HASHTAGS = 5;
+export const SPACE = /\s+/g;
+export const HASHTAG_FORMULA = /^#[A-Za-zА-Яа-яё0-9]{1,19}$/;
+export const MAX_COMMENT_LENGTH = 140;
+export const SCALE_STEP = 25;
+export const MIN_SCALE = 25;
+export const MAX_SCALE = 100;
+export const DEFAULT_SCALE = MAX_SCALE;
+export const ACTIVE_CLASS = 'img-filters__button--active';
+export const PICTURES_COUNT = 10;
+export const DELAY = 500;
+export const ERROR_SHOW_TIME = 5000;
+export const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
+export const ButtonCaption = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Отправляется'
+};
+
 export const GET_DATA = 'https://32.javascript.htmlacademy.pro/kekstagram/data';
 export const POST_DATA = 'https://32.javascript.htmlacademy.pro/kekstagram';
-
 
 export const EFFECTS = [
   {

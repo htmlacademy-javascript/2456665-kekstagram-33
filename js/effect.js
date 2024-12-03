@@ -8,7 +8,6 @@ const effectLevelElement = document.querySelector('.img-upload__effect-level');
 
 const DEFAULT_EFFECT = EFFECTS[0];
 
-
 const removeSlider = () => {
   effectLevelElement.classList.add('hidden');
 };
@@ -41,7 +40,6 @@ noUiSlider.create(sliderElement, {
 const renderImage = ({ style, unit }, value) => {
   imageElement.style.filter = `${style}(${value}${unit})`;
 };
-
 
 sliderElement.noUiSlider.on('update', () => {
   const value = sliderElement.noUiSlider.get();
