@@ -1,4 +1,5 @@
 import { removeEscapeControl, setEscapeControl } from './escape-control';
+import { ERROR_SHOW_TIME } from './constants';
 
 const successTemplateElement = document.querySelector('#success').content.querySelector('.success');
 const errorTemplateElement = document.querySelector('#error').content.querySelector('.error');
@@ -10,7 +11,7 @@ export const showError = () => {
   const removeError = () => {
     errorInner.remove();
   };
-  setTimeout(removeError, 5000);
+  setTimeout(removeError, ERROR_SHOW_TIME);
 };
 
 

@@ -10,6 +10,7 @@ export const DEFAULT_SCALE = MAX_SCALE;
 export const ACTIVE_CLASS = 'img-filters__button--active';
 export const PICTURES_COUNT = 10;
 export const DELAY = 500;
+export const ERROR_SHOW_TIME = 5000;
 export const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 export const GET_DATA = 'https://32.javascript.htmlacademy.pro/kekstagram/data';
