@@ -1,12 +1,12 @@
 import { EFFECTS } from './constants.js';
 
+const DEFAULT_EFFECT = EFFECTS[0];
+
 const sliderElement = document.querySelector('.effect-level__slider');
 const effectsElement = document.querySelector('.effects__list');
 const imageElement = document.querySelector('.img-upload__preview img');
 const valueElement = document.querySelector('.effect-level__value');
 const effectLevelElement = document.querySelector('.img-upload__effect-level');
-
-const DEFAULT_EFFECT = EFFECTS[0];
 
 const removeSlider = () => {
   effectLevelElement.classList.add('hidden');
