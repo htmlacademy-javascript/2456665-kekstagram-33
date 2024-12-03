@@ -4,6 +4,7 @@ import { reset as resetFilter } from './effect.js';
 import { sendData } from './api.js';
 import { showPopup } from './popup.js';
 import { removeEscapeControl, setEscapeControl } from './escape-control.js';
+import { ButtonCaption } from './constants.js';
 
 const formUploadElement = document.querySelector('.img-upload__form');
 const overlayElement = formUploadElement.querySelector('.img-upload__overlay');
@@ -40,11 +41,6 @@ cancelButtonElement.addEventListener('click', () => {
   hideModal();
   removeEscapeControl();
 });
-
-const ButtonCaption = {
-  IDLE: 'Опубликовать',
-  SENDING: 'Отправляется'
-};
 
 const blockSubmitButton = (isBlocked = true) => {
   submitButtonElemtnt.disabled = isBlocked;

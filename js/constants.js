@@ -13,6 +13,11 @@ export const DELAY = 500;
 export const ERROR_SHOW_TIME = 5000;
 export const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
+export const ButtonCaption = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Отправляется'
+};
+
 export const GET_DATA = 'https://32.javascript.htmlacademy.pro/kekstagram/data';
 export const POST_DATA = 'https://32.javascript.htmlacademy.pro/kekstagram';
 

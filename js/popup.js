@@ -14,7 +14,6 @@ export const showError = () => {
   setTimeout(removeError, ERROR_SHOW_TIME);
 };
 
-
 const templates = {
   success: successTemplateElement,
   error: errorTemplateElement
