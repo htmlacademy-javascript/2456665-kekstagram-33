@@ -13,6 +13,13 @@ export const DELAY = 500;
 export const ERROR_SHOW_TIME = 5000;
 export const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
+export const Filter = {
+  DEFAULT: 'filter-default',
+  RANDOM: 'filter-random',
+
+  DISCUSSED: 'filter-discussed',
+};
+
 export const ButtonCaption = {
   IDLE: 'Опубликовать',
   SENDING: 'Отправляется'

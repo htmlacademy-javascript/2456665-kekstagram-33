@@ -1,15 +1,9 @@
-import { ACTIVE_CLASS, PICTURES_COUNT, DELAY } from './constants';
+import { ACTIVE_CLASS, PICTURES_COUNT, DELAY, Filter} from './constants';
 import { getRandomArrayElement, debounce } from './util';
 import { renderCards } from './picture.js';
 
 const formElement = document.querySelector('.img-filters__form');
 const filtersElement = document.querySelector('.img-filters');
-
-const Filter = {
-  DEFAULT: 'filter-default',
-  RANDOM: 'filter-random',
-  DISCUSSED: 'filter-discussed',
-};
 
 let currentFilter = '';
 let pictures = [];
